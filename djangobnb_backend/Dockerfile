@@ -8,15 +8,13 @@ ENV PYTHONUNBUFFERED 1
 RUN apt-get update && apt-get install -y netcat
 
 RUN pip install --upgrade pip
-
-# Update the paths to correctly reference the files in your directory
-COPY ./djangobnb_backend/djangobnb_backend/requirements.txt .
+COPY ./djangobnb_backend/requirements.txt .
 RUN pip install -r requirements.txt
 
-COPY ./djangobnb_backend/djangobnb_backend/entrypoint.sh .
+COPY ./djangobnb_backend/entrypoint.sh .
 RUN sed -i 's/\r$//g' /usr/src/djangobnb_backend/entrypoint.sh
 RUN chmod +x /usr/src/djangobnb_backend/entrypoint.sh
 
-COPY ./djangobnb_backend/djangobnb_backend/ .
+COPY ./djangobnb_backend/ .
 
 ENTRYPOINT [ "/usr/src/djangobnb_backend/entrypoint.sh" ]
