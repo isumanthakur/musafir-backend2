@@ -2,13 +2,15 @@
 
 if [ "$DATABASE" = "postgres" ] 
 then
-    echo "Check if database is running..."
+    echo "Waiting for PostgreSQL to start..."
 
-    while ! nc -z $SQL_HOST $SQL_PORT; do
-        sleep 0.1
+    echo "Using SQL_HOST: $SQL_HOST and SQL_PORT: $SQL_PORT"
+
+    while ! nc -z "$SQL_HOST" "$SQL_PORT"; do
+        sleep 1
     done
 
-    echo "The database is up and running :-D"
+    echo "PostgreSQL is up and running :-D"
 fi
 
 python manage.py makemigrations
