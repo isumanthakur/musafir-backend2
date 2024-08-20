@@ -8,6 +8,7 @@ ENV PYTHONUNBUFFERED 1
 RUN apt-get update && apt-get install -y netcat
 
 RUN pip install --upgrade pip
+
 COPY ./djangobnb_backend/requirements.txt .
 RUN pip install -r requirements.txt
 
