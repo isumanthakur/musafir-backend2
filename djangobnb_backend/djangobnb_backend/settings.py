@@ -12,13 +12,13 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "default_secret_key")
 
 DEBUG = os.environ.get("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", os.environ.get('HEROKU_HOSTNAME', '')]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", os.environ.get('RAILWAY_STATIC_URL', '')]
 
 AUTH_USER_MODEL = 'useraccount.User'
 
 SITE_ID = 1
 
-WEBSITE_URL = f'https://{os.environ.get("HEROKU_HOSTNAME")}'
+WEBSITE_URL = f'https://{os.environ.get("RAILWAY_STATIC_URL")}'
 
 CHANNEL_LAYERS = {
     'default': {
@@ -52,7 +52,7 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOWED_ORIGINS = [
-    os.environ.get("CORS_ALLOWED_ORIGIN", "https://your-vercel-domain.vercel.app"),
+    os.environ.get("CORS_ALLOWED_ORIGIN", "https://your-frontend-domain"),
 ]
 
 CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS
@@ -90,7 +90,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add this for static file serving
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',

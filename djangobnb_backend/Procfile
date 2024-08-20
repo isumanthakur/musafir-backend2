@@ -1,2 +1,0 @@
-web: gunicorn djangobnb_backend.wsgi --log-file -
-daphne: daphne --bind 0.0.0.0 -p $PORT djangobnb_backend.asgi:application
