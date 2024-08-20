@@ -12,13 +12,13 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "default_secret_key")
 
 DEBUG = os.environ.get("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", os.environ.get('RAILWAY_STATIC_URL', '')]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", os.environ.get('RENDER_EXTERNAL_HOSTNAME', '')]
 
 AUTH_USER_MODEL = 'useraccount.User'
 
 SITE_ID = 1
 
-WEBSITE_URL = f'https://{os.environ.get("RAILWAY_STATIC_URL")}'
+WEBSITE_URL = f'https://{os.environ.get("RENDER_EXTERNAL_HOSTNAME")}'
 
 CHANNEL_LAYERS = {
     'default': {
@@ -29,9 +29,6 @@ CHANNEL_LAYERS = {
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
-    "ROTATE_REFRESH_TOKEN": False,
-    "BLACKLIST_AFTER_ROTATION": False,
-    "UPDATE_LAST_LOGIN": True,
     "SIGNING_KEY": "acomplexkey",
     "ALGORITHM": "HS512",
 }
@@ -122,7 +119,7 @@ WSGI_APPLICATION = 'djangobnb_backend.wsgi.application'
 ASGI_APPLICATION = 'djangobnb_backend.asgi.application'
 
 DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'), conn_max_age=600, ssl_require=True)
 }
 
 RAZORPAY_API_KEY = os.environ.get("RAZORPAY_API_KEY")
