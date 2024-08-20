@@ -1,5 +1,4 @@
 import os
-
 from datetime import timedelta
 from pathlib import Path
 from dotenv import load_dotenv
@@ -9,7 +8,6 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -17,12 +15,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True #bool(os.environ.get("DEBUG", default=0))
+DEBUG = True  # Set this to False in production
 
 if DEBUG:
-    ALLOWED_HOSTS = ["localhost", "127.0.0.1", "64.226.81.32"]
+    ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 else:
-    ALLOWED_HOSTS = ["64.226.81.32"]
+    ALLOWED_HOSTS = ["64.226.81.32"]  # Adjust as needed for production
 
 AUTH_USER_MODEL = 'useraccount.User'
 
@@ -31,7 +29,7 @@ SITE_ID = 1
 if DEBUG:
     WEBSITE_URL = 'http://localhost:8000'
 else:
-    WEBSITE_URL = 'http://64.226.81.32:1337'
+    WEBSITE_URL = 'http://64.226.81.32:1337'  # Adjust for production
 
 CHANNEL_LAYERS = {
     'default': {
@@ -46,7 +44,7 @@ SIMPLE_JWT = {
     "BLACKLIST_AFTER_ROTATION": False,
     "UPDATE_LAST_LOGIN": True,
     "SIGNING_KEY": "acomplexkey",
-    "ALOGRIGTHM": "HS512",
+    "ALGORITHM": "HS512",  # Corrected typo from 'ALOGRIGTHM' to 'ALGORITHM'
 }
 
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
@@ -65,24 +63,18 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOWED_ORIGINS = [
-    'http://127.0.0.1:8000',
-    'http://127.0.0.1:3000',
-    'http://64.226.81.32',
-    'http://64.226.81.32:1337'
+    'http://localhost:8000',
+    'http://localhost:3000',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://127.0.0.1:8000',
-    'http://127.0.0.1:3000',
-    'http://64.226.81.32',
-    'http://64.226.81.32:1337'
+    'http://localhost:8000',
+    'http://localhost:3000',
 ]
 
 CORS_ORIGINS_WHITELIST = [
-    'http://127.0.0.1:8000',
-    'http://127.0.0.1:3000',
-    'http://64.226.81.32',
-    'http://64.226.81.32:1337'
+    'http://localhost:8000',
+    'http://localhost:3000',
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -114,10 +106,12 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
 
     'corsheaders',
-
+    'review',
     'chat',
     'property',
     'useraccount',
+    'community', 
+    'payments',
 ]
 
 MIDDLEWARE = [
@@ -152,7 +146,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'djangobnb_backend.wsgi.application'
 ASGI_APPLICATION = 'djangobnb_backend.asgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -166,7 +159,9 @@ DATABASES = {
         'PORT': os.environ.get("SQL_PORT"),
     }
 }
-
+# Load Razorpay API credentials
+RAZORPAY_API_KEY = os.environ.get("RAZORPAY_API_KEY")
+RAZORPAY_SECRET_KEY = os.environ.get("RAZORPAY_SECRET_KEY")
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -186,7 +181,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -198,12 +192,11 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type

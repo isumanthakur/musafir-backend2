@@ -1,7 +1,5 @@
 from django.forms import ModelForm
-
 from .models import Property
-
 
 class PropertyForm(ModelForm):
     class Meta:
@@ -13,8 +11,8 @@ class PropertyForm(ModelForm):
             'bedrooms',
             'bathrooms',
             'guests',
-            'country',
-            'country_code',
+            'state',  # New field
+            'city',   # New field
             'category',
             'image',
         )

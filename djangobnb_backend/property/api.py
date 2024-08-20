@@ -1,5 +1,4 @@
 from django.http import JsonResponse
-
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework_simplejwt.tokens import AccessToken
 from .forms import PropertyForm
@@ -11,9 +10,6 @@ from useraccount.models import User
 @authentication_classes([])
 @permission_classes([])
 def properties_list(request):
-    #
-    # Auth
-
     try:
         token = request.META['HTTP_AUTHORIZATION'].split('Bearer ')[1]
         token = AccessToken(token)
@@ -22,27 +18,20 @@ def properties_list(request):
     except Exception as e:
         user = None
 
-    #
-    #
-
     favorites = []
     properties = Property.objects.all()
-
-    #
-    # Filter
 
     is_favorites = request.GET.get('is_favorites', '')
     landlord_id = request.GET.get('landlord_id', '')
 
-    country = request.GET.get('country', '')
+    state = request.GET.get('state', '')  # Updated
+    city = request.GET.get('city', '')    # Updated
     category = request.GET.get('category', '')
     checkin_date = request.GET.get('checkIn', '')
     checkout_date = request.GET.get('checkOut', '')
     bedrooms = request.GET.get('numBedrooms', '')
     guests = request.GET.get('numGuests', '')
     bathrooms = request.GET.get('numBathrooms', '')
-
-    print('country', country)
 
     if checkin_date and checkout_date:
         exact_matches = Reservation.objects.filter(start_date=checkin_date) | Reservation.objects.filter(end_date=checkout_date)
@@ -69,22 +58,19 @@ def properties_list(request):
     if bathrooms:
         properties = properties.filter(bathrooms__gte=bathrooms)
     
-    if country:
-        properties = properties.filter(country=country)
+    if state:  # Updated
+        properties = properties.filter(state=state)
+    
+    if city:  # Updated
+        properties = properties.filter(city=city)
     
     if category and category != 'undefined':
         properties = properties.filter(category=category)
     
-    #
-    # Favorites
-        
     if user:
         for property in properties:
             if user in property.favorited.all():
                 favorites.append(property.id)
-
-    #
-    #
 
     serializer = PropertiesListSerializer(properties, many=True)
 
@@ -92,7 +78,6 @@ def properties_list(request):
         'data': serializer.data,
         'favorites': favorites
     })
-
 
 @api_view(['GET'])
 @authentication_classes([])
@@ -104,7 +89,6 @@ def properties_detail(request, pk):
 
     return JsonResponse(serializer.data)
 
-
 @api_view(['GET'])
 @authentication_classes([])
 @permission_classes([])
@@ -115,7 +99,6 @@ def property_reservations(request, pk):
     serializer = ReservationsListSerializer(reservations, many=True)
 
     return JsonResponse(serializer.data, safe=False)
-
 
 @api_view(['POST', 'FILES'])
 def create_property(request):
@@ -130,7 +113,6 @@ def create_property(request):
     else:
         print('error', form.errors, form.non_field_errors)
         return JsonResponse({'errors': form.errors.as_json()}, status=400)
-
 
 @api_view(['POST'])
 def book_property(request, pk):
@@ -156,9 +138,7 @@ def book_property(request, pk):
         return JsonResponse({'success': True})
     except Exception as e:
         print('Error', e)
-
         return JsonResponse({'success': False})
-
 
 @api_view(['POST'])
 def toggle_favorite(request, pk):
@@ -166,9 +146,7 @@ def toggle_favorite(request, pk):
 
     if request.user in property.favorited.all():
         property.favorited.remove(request.user)
-
         return JsonResponse({'is_favorite': False})
     else:
         property.favorited.add(request.user)
-
         return JsonResponse({'is_favorite': True})
