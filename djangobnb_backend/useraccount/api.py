@@ -21,11 +21,5 @@ def reservations_list(request):
 
 # Add the temporary superuser creation view
 def create_superuser(request):
-    User = get_user_model()
-    if not User.objects.filter(username="admin").exists():
-        User.objects.create_superuser("testadmin", "admintest@example.com", "testadminpassword123")
-        return HttpResponse("Superuser created successfully!", status=200)
-    else:
-        return HttpResponse("Superuser already exists.", status=400)
-
+    return HttpResponse("Test response", status=200)
 
