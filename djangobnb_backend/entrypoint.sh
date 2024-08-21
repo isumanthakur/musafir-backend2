@@ -19,8 +19,8 @@ python manage.py collectstatic --noinput
 python manage.py makemigrations
 python manage.py migrate
 
-# Check if the superuser exists, if not, create one
-echo "from django.contrib.auth import get_user_model; User = get_user_model(); if not User.objects.filter(username='testadmin').exists(): User.objects.create_superuser('testadmin', 'admintest@example.com', 'testadminpassword123')" | python manage.py shell
+# Run the superuser creation script
+python create_superuser.py
 
 # Start Gunicorn server, binding it to port 10000
 exec gunicorn --bind 0.0.0.0:$PORT djangobnb_backend.wsgi:application
