@@ -49,10 +49,12 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOWED_ORIGINS = [
-    os.environ.get("CORS_ALLOWED_ORIGIN", "https://your-frontend-domain"),
+    "https://frontmusafir.vercel.app",
 ]
 
-CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS
+CSRF_TRUSTED_ORIGINS = [
+    "https://frontmusafir.vercel.app",
+]
 
 CORS_ALLOW_ALL_ORIGINS = False  # Only allow specific origins
 
