@@ -13,8 +13,11 @@ then
     echo "PostgreSQL is up and running :-D"
 fi
 
+# Collect static files
+python manage.py collectstatic --noinput
+
 python manage.py makemigrations
 python manage.py migrate
 
 # Start Gunicorn server, binding it to port 10000
-exec gunicorn --bind 0.0.0.0:10000 djangobnb_backend.wsgi:application
+exec gunicorn --bind 0.0.0.0:$PORT djangobnb_backend.wsgi:application
