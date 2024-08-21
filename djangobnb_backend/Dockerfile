@@ -18,4 +18,7 @@ RUN chmod +x /usr/src/djangobnb_backend/entrypoint.sh
 
 COPY . .
 
+# Expose port 10000
+EXPOSE 10000
+
 ENTRYPOINT [ "/usr/src/djangobnb_backend/entrypoint.sh" ]

@@ -16,4 +16,5 @@ fi
 python manage.py makemigrations
 python manage.py migrate
 
-exec "$@"
+# Start Gunicorn server, binding it to port 10000
+exec gunicorn --bind 0.0.0.0:10000 djangobnb_backend.wsgi:application
