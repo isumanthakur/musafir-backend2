@@ -19,8 +19,5 @@ python manage.py collectstatic --noinput
 python manage.py makemigrations
 python manage.py migrate
 
-# Run the superuser creation script
-python create_superuser.py
-
 # Start Gunicorn server, binding it to port 10000
 exec gunicorn --bind 0.0.0.0:$PORT djangobnb_backend.wsgi:application
