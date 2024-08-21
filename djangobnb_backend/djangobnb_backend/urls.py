@@ -1,10 +1,10 @@
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib import admin
 from django.urls import path, include
-from .admin_site import admin_site  # Import the custom AdminSite
 
 urlpatterns = [
-    path('admin/', admin_site.urls),  # Use the custom AdminSite
+    path('admin/', admin.site.urls),
     path('api/properties/', include('property.urls')),
     path('api/properties/<uuid:property_id>/', include('review.urls')),  # Include review URLs under properties
     path('api/auth/', include('useraccount.urls')),
