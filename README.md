@@ -1,44 +1,27 @@
-# Djangobnb - Fullstack Airbnb clone - Next.js 14 / React, Tailwind, Django, Django Rest Framework
+Musafir - All in One Travel Site
 
-This repository is for the frontend part of my video tutorial series. You can find it here:
-[YOUTUBE PLAYLIST](https://www.youtube.com/playlist?list=PLpyspNLjzwBnP-906FBRP5qzB4YXjMvnT)
+Project Duration: April 2024 - June 2024
+Live URL: frontmusafir.vercel.app
 
-## Things you will learn and implement
+Overview
 
-- Next.js 14
-- React
-- Tailwind
-- Django
-- Django rest framework
-- Docker compose
-- Postgresql
-- Deployment to Digital Ocean
+Musafir is an all-in-one travel platform that provides users with a comprehensive travel planning experience. This project includes a responsive web interface, secure authentication, robust payment processing, and a feature-rich community page. Below is a detailed breakdown of the key features and technologies used.
 
-## Features in this project
+Key Features
 
-- Fully responsive design built with Tailwind
-- Authentication using Django Allauth (Email log in)
-- How to use react-date-range and other packages
-- How to upload images using fetch
-- Live chat using web sockets
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. Frontend (Next.js)
+Responsive Web Interface: The frontend is built using Next.js, ensuring a seamless experience across devices. Users can search for properties, book accommodations, and leave detailed ratings and reviews.
+UI/UX: The interface is designed with user interaction and engagement in mind, featuring intuitive navigation and easy access to essential features.
+2. JWT-Based Authentication
+Secure User Login: Implemented JWT (JSON Web Tokens) for secure authentication, ensuring that user sessions are encrypted and protected from unauthorized access.
+3. Payment Integration (Razorpay)
+Secure Payment Gateway: Integrated Razorpay with advanced data encryption techniques to provide a secure and seamless payment experience. The system effectively safeguards user data and reduces the likelihood of transaction errors.
+4. Backend (Django with PostgreSQL)
+Booking System: The backend is powered by Django, with PostgreSQL as the database. A first-come, first-served booking system ensures real-time updates, providing users with accurate and fair reservation capabilities.
+Scalability: The system is designed to handle a large number of users and transactions, making it robust and reliable.
+5. WebSocket-Based Real-Time Messaging
+Real-Time Interaction: Utilized WebSocket to enable real-time messaging between users. The community page allows for dynamic communication, with features like notifications, instant messaging, and chat updates.
+6. Community Page
+User Engagement: Developed a comprehensive community page where users can share text and media. The page supports interactions like liking, sharing, and commenting, fostering a sense of community and active user participation.
+Visual Diagram
 
